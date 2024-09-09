@@ -1,0 +1,26 @@
+-- Таблица для хранения информации об игроках
+CREATE TABLE Players (
+    player_id INT AUTO_INCREMENT PRIMARY KEY,
+    player_name VARCHAR(100) NOT NULL,
+    is_turn BOOLEAN DEFAULT FALSE
+);
+
+-- Таблица для хранения ходов
+CREATE TABLE Moves (
+    move_id INT AUTO_INCREMENT PRIMARY KEY,
+    player_id INT,
+    move_x INT NOT NULL,
+    move_y INT NOT NULL,
+    FOREIGN KEY (player_id) REFERENCES Players(player_id)
+);
+CREATE TABLE Ships (
+    ship_id INT AUTO_INCREMENT PRIMARY KEY,
+    player_id INT,
+    ship_type VARCHAR(50) NOT NULL, -- Тип корабля (например, "Корабль 1", "Корабль 2" и т.д.)
+    start_x INT NOT NULL,            -- Начальная координата X
+    start_y INT NOT NULL,            -- Начальная координата Y
+    end_x INT NOT NULL,              -- Конечная координата X
+    end_y INT NOT NULL,              -- Конечная координата Y
+    is_sunk BOOLEAN DEFAULT FALSE,   -- Состояние корабля (потоплен или нет)
+    FOREIGN KEY (player_id) REFERENCES Players(player_id)
+);
